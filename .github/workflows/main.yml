@@ -38,20 +38,3 @@ jobs:
           }
           Write-Host "Test completed!"
 
-  test-macos:
-    name: Test macOS Runner
-    runs-on: macos-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run for 30 seconds
-        run: |
-          echo "Starting test job on macOS runner..."
-          echo "This job will run for 30 seconds to test runner usage reporting"
-          for i in {1..30}; do
-            echo "Second $i of 30"
-            sleep 1
-          done
-          echo "Test completed!"
-
