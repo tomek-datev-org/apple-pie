@@ -1,0 +1,57 @@
+name: Test Runner Usage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-linux:
+    name: Test Linux Runner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run for 30 seconds
+        run: |
+          echo "Starting test job on Linux runner..."
+          echo "This job will run for 30 seconds to test runner usage reporting"
+          for i in {1..30}; do
+            echo "Second $i of 30"
+            sleep 1
+          done
+          echo "Test completed!"
+
+  test-windows:
+    name: Test Windows Runner
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run for 30 seconds
+        run: |
+          Write-Host "Starting test job on Windows runner..."
+          Write-Host "This job will run for 30 seconds to test runner usage reporting"
+          for ($i=1; $i -le 30; $i++) {
+            Write-Host "Second $i of 30"
+            Start-Sleep -Seconds 1
+          }
+          Write-Host "Test completed!"
+
+  test-macos:
+    name: Test macOS Runner
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run for 30 seconds
+        run: |
+          echo "Starting test job on macOS runner..."
+          echo "This job will run for 30 seconds to test runner usage reporting"
+          for i in {1..30}; do
+            echo "Second $i of 30"
+            sleep 1
+          done
+          echo "Test completed!"
+
