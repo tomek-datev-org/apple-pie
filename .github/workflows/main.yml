@@ -19,6 +19,14 @@ jobs:
           echo "This job will run for a random duration between 2 and 10 minutes"
           duration=$(( (RANDOM % 9) + 2 ))
           echo "Chosen duration: ${duration} minutes ($((duration * 60)) seconds)"
+          
+          # 15% failure chance (85/100 = no fail, else fail)
+          rand_fail=$((RANDOM % 100))
+          if [ $rand_fail -lt 15 ]; then
+            echo "You overcooked! -> Random failure triggered"
+            exit 1
+          fi
+          
           for ((i=1; i<=duration*60; i++)); do
             echo "Second $i of $((duration*60))"
             sleep 1
@@ -33,13 +41,23 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bake for random 2-10 minutes
+        shell: powershell
         run: |
-          echo "Starting baking job on Linux runner..."
-          echo "This job will run for a random duration between 2 and 10 minutes"
-          duration=$(( (RANDOM % 9) + 2 ))
-          echo "Chosen duration: ${duration} minutes ($((duration * 60)) seconds)"
-          for ((i=1; i<=duration*60; i++)); do
-            echo "Second $i of $((duration*60))"
-            sleep 1
-          done
-          echo "Bake completed!"
+          Write-Output "Starting baking job on Windows runner..."
+          Write-Output "This job will run for a random duration between 2 and 10 minutes"
+          $duration = (Get-Random -Minimum 2 -Maximum 11)
+          Write-Output "Chosen duration: ${duration} minutes ($($duration * 60) seconds)"
+          
+          # 15% failure chance
+          $randFail = Get-Random -Minimum 0 -Maximum 100
+          if ($randFail -lt 15) {
+            Write-Output "You overcooked! -> Random failure triggered"
+            exit 1
+          }
+          
+          $totalSeconds = $duration * 60
+          for ($i = 1; $i -le $totalSeconds; $i++) {
+            Write-Output "Second $i of $totalSeconds"
+            Start-Sleep -Seconds 1
+          }
+          Write-Output "Bake completed!"
