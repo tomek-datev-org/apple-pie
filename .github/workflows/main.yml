@@ -1,40 +1,45 @@
-name: Test Runner Usage
+name: Bake apple pie
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
-  test-linux:
-    name: Test Linux Runner
+  bake-linux:
+    name: Bake apple pie on Linux
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run for 30 seconds
+      - name: Bake for random 2-10 minutes
         run: |
-          echo "Starting test job on Linux runner..."
-          echo "This job will run for 30 seconds to test runner usage reporting"
-          for i in {1..30}; do
-            echo "Second $i of 30"
+          echo "Starting baking job on Linux runner..."
+          echo "This job will run for a random duration between 2 and 10 minutes"
+          duration=$(( (RANDOM % 9) + 2 ))
+          echo "Chosen duration: ${duration} minutes ($((duration * 60)) seconds)"
+          for ((i=1; i<=duration*60; i++)); do
+            echo "Second $i of $((duration*60))"
             sleep 1
           done
-          echo "Test completed!"
+          echo "Bake completed!"
 
-  test-windows:
-    name: Test Windows Runner
+  bake-windows:
+    name: Bake apple pie on Windows
     runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run for 30 seconds
+      - name: Bake for random 2-10 minutes
         run: |
-          Write-Host "Starting test job on Windows runner..."
-          Write-Host "This job will run for 30 seconds to test runner usage reporting"
-          for ($i=1; $i -le 30; $i++) {
-            Write-Host "Second $i of 30"
-            Start-Sleep -Seconds 1
-          }
-          Write-Host "Test completed!"
-
+          echo "Starting baking job on Linux runner..."
+          echo "This job will run for a random duration between 2 and 10 minutes"
+          duration=$(( (RANDOM % 9) + 2 ))
+          echo "Chosen duration: ${duration} minutes ($((duration * 60)) seconds)"
+          for ((i=1; i<=duration*60; i++)); do
+            echo "Second $i of $((duration*60))"
+            sleep 1
+          done
+          echo "Bake completed!"
