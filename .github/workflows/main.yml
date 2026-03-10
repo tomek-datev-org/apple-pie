@@ -20,9 +20,9 @@ jobs:
           duration=$(( (RANDOM % 9) + 2 ))
           echo "Chosen duration: ${duration} minutes ($((duration * 60)) seconds)"
           
-          # 25% failure chance (75/100 = no fail, else fail)
+          # 20% failure chance (80/100 = no fail, else fail)
           rand_fail=$((RANDOM % 100))
-          if [ $rand_fail -lt 25 ]; then
+          if [ $rand_fail -lt 20 ]; then
             echo "You overcooked! -> Random failure triggered"
             exit 1
           fi
@@ -48,9 +48,9 @@ jobs:
           $duration = (Get-Random -Minimum 2 -Maximum 11)
           Write-Output "Chosen duration: ${duration} minutes ($($duration * 60) seconds)"
           
-          # 25% failure chance
+          # 20% failure chance
           $randFail = Get-Random -Minimum 0 -Maximum 100
-          if ($randFail -lt 25) {
+          if ($randFail -lt 20) {
             Write-Output "You overcooked! -> Random failure triggered"
             exit 1
           }
